@@ -12,7 +12,7 @@ app.get('/', async (req, res, next) => {
   res.send({ message: 'Awesome it works 🐻' });
 });
 
-app.use('/api', require('./src/routes/api.route'));
+app.use('/api/v1/', require('./src/routes/api.route'));
 
 // Middleware to generate 404 error for undefined routes
 app.use(notFoundHandler);

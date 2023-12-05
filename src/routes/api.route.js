@@ -7,9 +7,9 @@ router.get('/', async (req, res, next) => {
   res.send({ message: 'Ok api is working 🚀' });
 });
 
-router.post('/signup', authController.signupUser);
-router.post('/login', authController.loginUser);
-router.post('/logout', authController.logoutUser);
-router.post('/forgot-password', authController.forgotPassword);
-router.post('/reset-password', authController.resetPassword);
+router.post('user/signup', authController.signupUser);
+router.post('user/login', authController.loginUser);
+router.post('user/logout', authController.logoutUser);
+router.post('user/forgot-password', authController.forgotPassword);
+router.post('user/reset-password', authController.resetPassword);
 module.exports = router;
