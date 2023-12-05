@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const authController = require('../controllers/authController');
-const { authenticateUser } = require('../middlewares/userAuth');
+const router = require("express").Router();
+const userController = require("../controllers/authController");
 
-
-router.get('/', async (req, res, next) => {
-  res.send({ message: 'Ok api is working 🚀' });
+router.get("/", async (req, res, next) => {
+  res.send({ message: "Ok api is working 🚀" });
 });
 
-router.post('user/signup', authController.signupUser);
-router.post('user/login', authController.loginUser);
-router.post('user/logout', authController.logoutUser);
-router.post('user/forgot-password', authController.forgotPassword);
-router.post('user/reset-password', authController.resetPassword);
+// Define user routes
+router.post("/user/signup", userController.signupUser);
+router.post("/user/login", userController.signInUser);
+router.post("/user/logout", userController.logoutUser);
+
+//Verification endpoint
+
 module.exports = router;

@@ -1,34 +1,25 @@
-// models/User.js
-const mongoose = require('mongoose');
-const argon2 = require('argon2');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   createAccount: {
     type: Date,
-    default: Date.now,
+    default: Date.now, // Store the date when the account was created
   },
-  email: {
-    type: String,
+  email: { 
+    type: String, 
     required: true,
-    unique: true,
-  },
-  password: {
+     unique: true 
+    },
+  password: { 
+    type: String, 
+    required: true
+   },
+   confirmedPassword: {
     type: String,
     required: true,
   },
 });
 
-userSchema.pre('save', async function (next) {
-  try {
-    if (this.isModified('password')) {
-      this.password = await argon2.hash(this.password);
-    }
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+const User = mongoose.model("User", userSchema, "HackCity");
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = { User };
+module.exports = User;

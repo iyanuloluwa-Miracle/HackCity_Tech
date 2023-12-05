@@ -1,16 +1,26 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const generateAccessToken = (user) => {
   const payload = {
     userId: user._id,
-    email: user.email,
+    name: user.name,
   };
 
   const options = {
-    expiresIn: '20m',
+    expiresIn: '20m', // Access token expiration time (adjust as needed)
   };
 
   return jwt.sign(payload, process.env.JWT_SECRET, options);
 };
 
-module.exports = { generateAccessToken };
+
+const verifyToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    throw new Error('Invalid token');
+  }
+};
+
+module.exports = { verifyToken, generateAccessToken};
