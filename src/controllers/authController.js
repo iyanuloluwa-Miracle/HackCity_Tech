@@ -108,6 +108,7 @@ const logoutUser = (req, res) => {
     });
   }
 };
+
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -117,14 +118,15 @@ const forgotPassword = async (req, res) => {
       return res.status(404).json({ success: false, error: "User not found" });
     }
 
-    // Generate a reset token and save it in the user document
-    const resetToken = generateResetToken();
-    user.resetToken = resetToken;
+    // Generate a reset token and save its hash in the user document
+    const { token, hash } = await generateResetToken();
+    user.resetToken = token;
+    user.resetTokenHash = hash;
     user.resetTokenExpiry = Date.now() + 3600000; // Token expiry time (1 hour)
     await user.save();
 
     // Send the reset token via email
-    sendResetTokenByEmail(user.email, resetToken);
+    await sendResetTokenByEmail(user.email, token);
 
     res.status(200).json({
       success: true,
@@ -135,6 +137,8 @@ const forgotPassword = async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 };
+
+
 
 const resetPassword = async (req, res) => {
   try {
@@ -168,6 +172,9 @@ const resetPassword = async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 };
+
+
+
 module.exports = {
   signupUser,
   signInUser,

@@ -1,10 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  createAccount: {
-    type: Date,
-    default: Date.now, // Store the date when the account was created
-  },
   email: {
     type: String,
     required: true,
@@ -14,8 +10,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  resetToken: {
+    type: String,
+    default: null,
+  },
+  resetTokenHash: {
+    type: String,
+    default: null,
+  },
+  resetTokenExpiry: {
+    type: Date,
+    default: null,
+  },
 });
 
-const User = mongoose.model("User", userSchema, "HackCity");
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
