@@ -54,23 +54,13 @@ const signInUser = async (req, res) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({
-        success: false,
-        data: null,
-        error: "Invalid email or password",
-        message: null,
-      });
+      throw new Error('User not found');
     }
 
     // Compare the password using Argon2
     const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        data: null,
-        error: "Invalid email or password",
-        message: null,
-      });
+      throw new Error('Invalid password');
     }
 
     // Generate the access token and refresh token

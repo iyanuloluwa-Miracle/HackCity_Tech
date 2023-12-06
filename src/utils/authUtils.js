@@ -1,4 +1,5 @@
-require('dotenv').config();
+// authUtils.js
+
 const jwt = require('jsonwebtoken');
 
 const generateAccessToken = (user) => {
@@ -8,19 +9,36 @@ const generateAccessToken = (user) => {
   };
 
   const options = {
-    expiresIn: '20m', // Access token expiration time (adjust as needed)
+    expiresIn: '50m',
   };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, options);
+  const token = jwt.sign(payload, process.env.JWT_SECRET, options);
+
+  console.log('Generated Token:', token);
+
+  return token;
 };
 
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  console.log('Auth Header:', authHeader); // Add this line
 
-const verifyToken = (token) => {
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    console.log('Invalid token: Token not found'); // Add this line
+    return res.status(401).json({ success: false, message: 'Invalid token' });
+  }
+
   try {
-    return jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded Token:', decodedToken); // Add this line
+    req.user = decodedToken; // Attach the decoded user to the request object
+    next(); // Call the next middleware or route handler
   } catch (err) {
-    throw new Error('Invalid token');
+    console.log('Invalid token: Verification failed'); // Add this line
+    return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 };
 
-module.exports = { verifyToken, generateAccessToken};
+module.exports = { verifyToken, generateAccessToken };

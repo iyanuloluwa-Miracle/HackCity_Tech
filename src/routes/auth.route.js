@@ -10,6 +10,4 @@ router.post("/user/signup", userController.signupUser);
 router.post("/user/login", userController.signInUser);
 router.post("/user/logout", userController.logoutUser);
 
-//Verification endpoint
-
 module.exports = router;

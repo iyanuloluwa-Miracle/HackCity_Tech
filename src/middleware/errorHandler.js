@@ -1,4 +1,4 @@
-const createError = require('http-errors');
+const createError = require("http-errors");
 
 // Middleware to generate 404 error for undefined routes
 const notFoundHandler = (req, res, next) => {
@@ -15,4 +15,3 @@ const errorHandler = (err, req, res, next) => {
 };
 
 module.exports = { notFoundHandler, errorHandler };
-  
