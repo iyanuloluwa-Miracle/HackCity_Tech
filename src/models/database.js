@@ -17,3 +17,4 @@ mongoose
 require("./User");
 require("./Post");
 require('./Category')
+require('./OAuthUser')
