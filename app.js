@@ -17,6 +17,7 @@ app.get("/", async (req, res, next) => {
 
 app.use("/api/v1/", require("./src/routes/auth.route"));
 app.use("/api/v1/", require("./src/routes/post.route"));
+app.use("/api/v1/", require("./src/routes/categories.route"));
 
 // Middleware to generate 404 error for undefined routes
 app.use(notFoundHandler);

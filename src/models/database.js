@@ -16,3 +16,4 @@ mongoose
 //Models
 require("./User");
 require("./Post");
+require('./Category')
