@@ -21,22 +21,22 @@ const generateAccessToken = (user) => {
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  console.log('Auth Header:', authHeader); // Add this line
+  console.log('Auth Header:', authHeader); 
 
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    console.log('Invalid token: Token not found'); // Add this line
+    console.log('Invalid token: Token not found'); 
     return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('Decoded Token:', decodedToken); // Add this line
-    req.user = decodedToken; // Attach the decoded user to the request object
-    next(); // Call the next middleware or route handler
+    console.log('Decoded Token:', decodedToken);
+    req.user = decodedToken; 
+    next(); 
   } catch (err) {
-    console.log('Invalid token: Verification failed'); // Add this line
+    console.log('Invalid token: Verification failed'); 
     return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 };

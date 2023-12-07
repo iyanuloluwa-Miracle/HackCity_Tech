@@ -5,7 +5,7 @@ const Post = require("../models/Post");
 const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const userId = req.user._id; // Assuming you've middleware to authenticate user
+    const userId = req.user._id; 
 
     const post = new Post({ title, content, author: userId });
     await post.save();
@@ -34,7 +34,7 @@ const deletePost = async (req, res) => {
     const postId = req.params.id;
     const userId = req.user._id;
 
-    // Ensure that the user is the author of the post
+    
     const post = await Post.findOne({ _id: postId, author: userId });
     if (!post) {
       return res
@@ -69,7 +69,6 @@ const editPost = async (req, res) => {
     const userId = req.user._id;
     const { title, content } = req.body;
 
-    // Ensure that the user is the author of the post
     const post = await Post.findOne({ _id: postId, author: userId });
     if (!post) {
       return res
@@ -102,7 +101,7 @@ const editPost = async (req, res) => {
 
 const listPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("author", "email"); // Assuming 'email' is a field in the User model
+    const posts = await Post.find().populate("author", "email"); 
     res
       .status(200)
       .json({
