@@ -14,6 +14,7 @@ const generateResetToken = async () => {
   return { token, hash };
 };
 
+
 const validateResetToken = (savedTokenHash, inputToken) => {
   return argon2.verify(savedTokenHash, inputToken);
 };

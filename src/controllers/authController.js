@@ -150,7 +150,7 @@ const resetPassword = async (req, res) => {
     }
 
     // Validate the reset token
-    if (!validateResetToken(user.resetToken, resetToken)) {
+    if (!validateResetToken(user.resetTokenHash, resetToken)) {
       return res
         .status(400)
         .json({ success: false, error: "Invalid or expired reset token" });
@@ -160,6 +160,7 @@ const resetPassword = async (req, res) => {
     const hashedPassword = await argon2.hash(newPassword);
     user.password = hashedPassword;
     user.resetToken = null; // Clear the reset token after use
+    user.resetTokenHash = null; // Clear the reset token hash after use
     user.resetTokenExpiry = null;
     await user.save();
 
@@ -172,6 +173,7 @@ const resetPassword = async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 };
+
 
 
 
