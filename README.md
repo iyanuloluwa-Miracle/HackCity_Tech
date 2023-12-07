@@ -1,5 +1,5 @@
 # API Documentation
-
+Postman Collection Link [https://documenter.getpostman.com/view/24870060/2s9YeN2UEX#2ef60067-af86-49ba-9f67-8276ad9cec81]
 ## Overview
 
 An API for a content management system offers capabilities for user authentication and the administration of posts in your application. It encompasses key functionalities like user registration, login, logout, password reset, as well as the creation, retrieval, updating, and deletion of posts. Additionally, it includes features for managing categories, including creation, retrieval, updating, and deletion.
